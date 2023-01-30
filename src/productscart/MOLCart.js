@@ -1,32 +1,42 @@
 import React, { useState } from 'react';
-import Header from './Header';
+import { useGetAllProductsQuery } from '../features/productsSliceces/productsApi';
+// import Header from './Header';
 import ATOMCart from './ATOMCart';
-import axios from 'axios';
+// import axios from 'axios';
 
 const MOLCart = () => {
 
 
-    const [productsData, setproductsData] = useState([])
+    // const [productsData, setproductsData] = useState([])
 
+    let { data, isSuccess } = useGetAllProductsQuery()
+    
+    console.log("from state data :", data)
 
-    const getProductsData = async () => {
-        try {
-            let getProductsData = await axios.get('https://fakestoreapi.com/products/')
-            setproductsData(getProductsData.data)
-        } catch (err) {
-            console.log('err from fetching data via axios:', err)
-        }
-    }
-
-    getProductsData()
-
-    console.log('from state products Data =>', productsData)
 
     return (
         <>
-            {/* <Header /> */}
             <div className='grid grid-cols-12 gap-10 m-5'>
+                {
+                    isSuccess ? (
+                        data.map((product) => {
+                            return (
+                                <div className='col-span-3' key={product.id}>
+                                    <ATOMCart
+                                        image={product.image}
+                                        title={product.title}
+                                        price={product.price}
+                                        liked={product.rating.count}
+                                    />
+                                </div>
+                            )
+                        })
 
+                    ) : <p>loading .................................</p>
+                }
+            </div>
+            {/* <Header /> */}
+            {/* <div className='grid grid-cols-12 gap-10 m-5'>
                 {
                     productsData.map((product) => {
                         return (
@@ -41,11 +51,9 @@ const MOLCart = () => {
                         )
                     })
                 }
-
-
-            </div>
+            </div> */}
         </>
     )
 }
 
-export default MOLCart
+export default MOLCart;

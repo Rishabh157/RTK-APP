@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const likedProductSlices = createSlice({
-    name: 'like',
+export const productSlices = createSlice({
+    name: 'allproducts',
     initialState: {
-        counterLike: 0,
+        allProducts: [],
     },
     reducers: {
         increaseLiked: (state) => {
@@ -12,5 +12,5 @@ export const likedProductSlices = createSlice({
     }
 })
 
-export const { increaseLiked } = likedProductSlices.actions
-export default likedProductSlices.reducer
+export const { increaseLiked } = productSlices.actions
+export default productSlices.reducer

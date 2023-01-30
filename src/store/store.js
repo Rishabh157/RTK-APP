@@ -1,8 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import addLikedProductsSlice from '../features/productsSliceces/likeProductSlice';
+import productSlices from '../features/productsSliceces/ProductsSlice';
+import { productsApi } from "../features/productsSliceces/productsApi";
 
-export default configureStore({
+const store = configureStore({
     reducer: {
-        likedProducts: addLikedProductsSlice,
+        products: productSlices,
+        [productsApi.reducerPath]: productsApi.middleware,
     },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }).concat([productsApi.middleware]),
 })
+
+export default store;
