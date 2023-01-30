@@ -6,3 +6,13 @@
   margin: 0px;
   padding: 0px;
 }
+
+/* this is for removing the default datalist tag icon  */
+/* .datalist-tag::-webkit-calendar-picker-indicator {
+  display: none;
+} */
+
+
+input::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
